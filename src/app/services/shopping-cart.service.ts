@@ -19,12 +19,13 @@ export class ShoppingCartService {
 
 private  async getOrCreateCardId() {
 
-    let cardID = localStorage.getItem('cardID')
-    if (cardID !== null ) {console.log(cardID!); return cardID!};
+    let cardID:any = localStorage.getItem('cardID')
+    if (cardID !== null || undefined ) {console.log(cardID!)
+       return cardID;}
 
 
 
-    let result: any = await this.create();
+      let result: any = this.create();
 
 
 
