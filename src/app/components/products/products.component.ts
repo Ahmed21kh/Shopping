@@ -43,7 +43,7 @@ subscription:Subscription
   async ngOnInit(): Promise<void> {
    (await (this.cartserv.getcart())).valueChanges().subscribe(cart=>{
        this.carte=cart
-       console.log(cart);
+      
 
    })
   }

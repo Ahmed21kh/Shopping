@@ -58,7 +58,7 @@ loginForm = new FormGroup({
     this.toast.observe({
       success:'Logged in successfully',
       loading:'Logging in...',
-      error:'email or password is wrong'
+      error:({message})=>`${message}`
     })
    ).subscribe(()=>{
     this.router.navigate([''])

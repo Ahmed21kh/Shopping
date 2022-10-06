@@ -20,22 +20,23 @@ export class ShoppingCartService {
 private  async getOrCreateCardId() {
 
     let cardID = localStorage.getItem('cardID')
-    console.log(cardID!);
-    if (cardID ) return cardID!;
+    if (cardID !== null ) {console.log(cardID!); return cardID!};
+
 
 
     let result: any = await this.create();
 
 
 
-    localStorage.setItem('cardID', result!.key!);
+    localStorage.setItem('cardID', result!.key);
 
-    console.log(result!.key);
+
+    if(result!.key !== null){ console.log(result!.key);}
 
     return result!.key;
   }
 
-  getItem(cardid: string, productid: string) {
+  getItem(cardid: any, productid: any) {
     return this.db.object('/shopping-carts/' + cardid! + '/items/' + productid!);
   }
 
@@ -51,14 +52,16 @@ private  async getOrCreateCardId() {
   async UbdateToCard(product: any , quantityState:any) {
 
 
-    console.log(product!.key!);
+    console.log(product!.key);
 
-    let cardid$ = await this.getOrCreateCardId();
+    let cardId = await this.getOrCreateCardId();
 
+        if(cardId === null || undefined){
 
-    console.log(cardid$!);
+        return;
+        }
 
-    let items$ = this.getItem(cardid$! , product!.key!);
+    let items$ = this.getItem(cardId! , product!.key);
 
 
     items$.snapshotChanges()
@@ -78,6 +81,7 @@ private  async getOrCreateCardId() {
             },
             quantity: 1,
           });
+
           console.log('sucsses!');
         }
       });
