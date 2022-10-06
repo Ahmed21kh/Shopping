@@ -27,7 +27,7 @@
         </a>
         <mat-menu #userMenu="matMenu" class="top-3 z-50 overflow-hidden sticky">
           <a class="dropdown-item" routerLink="/orders" >My Orders</a>
-          <ng-container *ngIf="appUser.isAdmin" >
+          <ng-container >
               <a class="dropdown-item" routerLink="/admin/orders" >Manage Orders</a>
             <a class="dropdown-item" routerLink="/admin/product" >Manage Products</a>
           </ng-container>

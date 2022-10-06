@@ -21,14 +21,14 @@ private  async getOrCreateCardId() {
 
     let cardID = localStorage.getItem('cardID')
     console.log(cardID!);
-    if (cardID ) return cardID;
+    if (cardID ) return cardID!;
 
 
     let result: any = await this.create();
 
 
 
-    localStorage.setItem('cardID', result!.key);
+    localStorage.setItem('cardID', result!.key!);
 
     console.log(result!.key);
 
@@ -36,7 +36,7 @@ private  async getOrCreateCardId() {
   }
 
   getItem(cardid: string, productid: string) {
-    return this.db.object('/shopping-carts/' + cardid! + '/items/' + productid);
+    return this.db.object('/shopping-carts/' + cardid! + '/items/' + productid!);
   }
 
   async addToCard(product: any){
@@ -51,14 +51,14 @@ private  async getOrCreateCardId() {
   async UbdateToCard(product: any , quantityState:any) {
 
 
-    console.log(product?.key);
+    console.log(product!.key!);
 
     let cardid$ = await this.getOrCreateCardId();
 
 
     console.log(cardid$!);
 
-    let items$ = this.getItem(cardid$! , product!.key);
+    let items$ = this.getItem(cardid$! , product!.key!);
 
 
     items$.snapshotChanges()

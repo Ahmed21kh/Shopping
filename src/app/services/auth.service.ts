@@ -53,7 +53,7 @@ export class AuthService {
   }
   signup(name: any, email: any, password: any) {
     return from(
-      createUserWithEmailAndPassword(this.afAuth, email, password)
+      createUserWithEmailAndPassword(this.afAuth , email , password)
     ).pipe(switchMap(({ user }) => updateProfile(user, { displayName: name })));
   }
   isAuthenticated() {
