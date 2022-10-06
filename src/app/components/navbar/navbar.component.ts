@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { UserInfo } from '../../models/user-info';
 import { UserService } from 'src/app/services/user.service';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 @Component({
   selector: 'app-navbar',
@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
  shoppingcartCounter=0
  appUser : UserInfo
 isAdmin: boolean
-
+Cart$:Observable<any>
  constructor(
   public authService:AuthService ,
   public router:Router ,
@@ -31,13 +31,7 @@ isAdmin: boolean
   private cartService:ShoppingCartService
     ) {
       authService.AppUser$.subscribe((newappuser:any) => this.appUser = newappuser);
-      if(this.isAdmin){
-        console.log("Admin");
-
-      }else{
-        console.log("user");
-
-      }
+      
 
      }
 
@@ -51,12 +45,13 @@ isAdmin: boolean
         this.shoppingcartCounter=0
         let item:any
         for (item in cart!.items) {
-           console.log(cart!.items);
+          //  console.log(cart!.items);
 
            this.shoppingcartCounter += cart!.items[item].quantity
 
         }
       })
+
      // this.authService.getauth().subscribe(auth =>{
     //   if(auth){
     //     this.isLogin=true
@@ -87,9 +82,6 @@ isAdmin: boolean
     })
 
    }
-   collapse(){
-     this.isCollapsed = ! this.isCollapsed
 
-}
 
 }

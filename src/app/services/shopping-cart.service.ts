@@ -17,24 +17,24 @@ export class ShoppingCartService {
     });
   }
 
-private  async getOrCreateCardId() {
+private async getOrCreateCardId() {
 
-    let cardID:any = localStorage.getItem('cardID')
-    if (cardID !== null || undefined ) {console.log(cardID!)
-       return cardID;}
-
+    let cardID:any =  localStorage.getItem('cardID')
+    if (cardID !== undefined  ) {  console.log(cardID); return cardID};
 
 
-      let result: any = this.create();
+
+
+    let result: any = await  this.create();
 
 
 
     localStorage.setItem('cardID', result!.key);
 
 
-    if(result!.key !== null){ console.log(result!.key);}
+    if(result.key !== null){ console.log(result.key);}
 
-    return result!.key;
+    return result.key;
   }
 
   getItem(cardid: any, productid: any) {
