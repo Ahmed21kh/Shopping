@@ -1,0 +1,23 @@
+.text-lg {
+  font-size: 1.125rem;
+  line-height:0;
+}
+/* .btn{
+  float: right !important;
+  margin-left: auto !important;
+  margin-right: 30px;
+  border: 2px solid;
+} */
+.sticky{
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  width: 100%;
+
+}
+.navbar
+{
+
+  z-index:999;
+
+}

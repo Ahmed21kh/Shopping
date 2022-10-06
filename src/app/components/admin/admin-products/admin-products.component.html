@@ -1,0 +1,39 @@
+<button mat-raised-button class=" bg-blue-500 mb-4 text-white" routerLink="/admin/newproduct">Add new product</button>
+<button mat-raised-button class=" bg-amber-500 mb-4 ml-3 text-black" routerLink="/"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back to homePage</button>
+
+<!-- <p>
+  <input
+  type="text"
+  #query
+  class="form-control mt-4"
+  placeholder="Search....."
+  (keyup)="filter(query.value)">
+</p> -->
+
+<table datatable  class="table table-striped mt-4  mb-4   hover"  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" >
+  <thead class="thead-dark">
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col">Title</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+
+      <!-- <th scope="col">Image</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredproducts$ " >
+      <!-- <th scope="row">{{ item.key}}</th> -->
+      <td>{{ item.payload.val().title}}</td>
+      <td>{{ item.payload.val().category}}</td>
+      <td>{{ item.payload.val().price | currency}}</td>
+      <td> <button mat-raised-button color="primary" [routerLink]="['/admin/products/'+ item.payload.key]">Edit </button> </td>
+
+      <!-- <td>{{ item.imageurl}}</td> -->
+    </tr>
+
+  </tbody>
+</table>
+
+

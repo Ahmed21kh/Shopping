@@ -1,0 +1,19 @@
+<div class=" sticky top-16 overflow-hidden  ">
+    <a
+    routerLink="/"
+    [class.active]="!category"
+    class=" list-group-item list-group-item-action text-lg cursor-pointer"
+    >All Categories</a>
+    <div *ngFor="let item of categories$ | async" class="  list-group">
+        <a routerLink="/"
+        [class.active]="category == item.name"
+        [queryParams]="{category:item.name}"
+        class=" list-group-item list-group-item-action text-lg cursor-pointer ">
+        {{item.name}}
+        </a>
+
+    </div>
+</div>
+
+
+

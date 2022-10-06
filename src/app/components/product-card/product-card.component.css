@@ -1,0 +1,26 @@
+.card-img-top{
+  height: 170px;
+
+}
+.card{
+  width: 250px !important;
+}
+
+@media (max-width:1025px) {
+    .card{
+      width: 200px;
+    }
+}
+@media (max-width:578px) {
+  .card{
+    width: 250px !important ;
+    margin:0 auto;
+
+
+  }
+}
+.no-gutters{
+    margin-right: 0;
+    margin-left: 0;
+
+}

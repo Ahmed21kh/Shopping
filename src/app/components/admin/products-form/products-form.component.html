@@ -1,0 +1,93 @@
+<h2 *ngIf="id == null" ><i class="fa fa-plus" aria-hidden="true"></i> Add Product</h2>
+<h2 *ngIf="id !== null" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit Product</h2>
+<div class="row">
+  <div class="col-md-6">
+
+    <form [formGroup]="productForm"  (ngSubmit)="save()" class=" border shadow-lg ">
+
+      <div class="form-group px-4 pt-3">
+        <label for="title" class=" text-lg">Title</label>
+        <input placeholder="Product title" formControlName="title"  name="title"  type="text" class="form-control" id="title"  >
+        <div class=" mt-2" *ngIf="title?.touched && title?.invalid" >
+          <mat-error *ngIf="title?.errors?.['required']">
+            Pleease Enter your Product Title
+          </mat-error>
+          <mat-error *ngIf="title?.errors?.['minlength']">
+            min character required is {{title?.errors?.minlength.requiredLength}}
+          </mat-error>
+
+        </div>
+
+      </div>
+
+      <div class="form-group px-4">
+        <label for="price" class=" text-lg">Price</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input placeholder="Product price" formControlName="price"  type="text" id="price"  class="form-control" aria-label="Amount (to the nearest dollar)">
+
+          <div class="input-group-append">
+            <span class="input-group-text">.00</span>
+          </div>
+        </div>
+        <div *ngIf="price?.touched && price?.invalid" >
+          <mat-error *ngIf="price?.errors?.['required']">
+            Pleease Enter your Product Price
+          </mat-error>
+          <mat-error *ngIf="price?.errors?.min">
+            Min Price is Zero
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="form-group px-4">
+        <label for="category" class=" text-lg">Category</label>
+        <select placeholder="Product category" formControlName="category"  id="category" class="form-control">
+          <option value="">please choose  your product category</option>
+          <option *ngFor="let cat of  categories$ " [value]="cat.name"  >
+            {{cat.name}}
+          </option>
+        </select>
+        <div *ngIf="category?.touched && category?.invalid" >
+          <mat-error *ngIf="category?.errors?.['required']">
+          Pleease choose your Product Category
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="form-group px-4 pb-3">
+        <label for="imageurl" class=" text-lg">Image Url </label>
+        <input placeholder="Product imageurl" formControlName="imageurl" type="url" class="form-control" url id="imageurl">
+        <!-- <input type="file" formControlName="name" class="form-control"> -->
+        <div *ngIf="imageurl?.touched && imageurl?.invalid" >
+            <mat-error *ngIf="imageurl?.errors?.['required']">
+              Pleease Enter your Product Image
+            </mat-error>
+            <mat-error *ngIf="imageurl?.errors?.url">
+              Pleease Enter Valid URL
+            </mat-error>
+         </div>
+      </div>
+
+
+      <button mat-raised-button color="primary" type="submit" class=" ml-4 mb-4 px-4">Save</button>
+      <button mat-raised-button type="button" routerLink="/admin/product" class=" ml-4 mb-4 px-4 bg-amber-500 text-black">Cancel</button>
+
+    </form>
+
+  </div>
+  <div class="col-md-6">
+    <div class="card border shadow-md" *ngIf="title?.value != '' "  style="width: 18rem;">
+      <img [src]="imageurl?.value" class="card-img-top" alt="">
+      <div class="card-body">
+        <h2 class="card-title">{{title?.value}}</h2>
+        <h4>{{price?.value | currency}}</h4>
+        <h4>{{category?.value }}</h4>
+        <button *ngIf="id !== null"   mat-raised-button color="warn" (click)="delete()" class=" center" > Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+

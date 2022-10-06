@@ -1,0 +1,27 @@
+<div class="card border shadow-md" *ngIf="product.payload.val().title != '' "  style="width: 18rem;">
+  <img [src]="product.payload.val().imageurl" class="card-img-top h-[170px] " alt="">
+  <div class="card-body">
+    <h1 class="card-title">{{product.payload.val().title}}</h1>
+    <h4>{{product.payload.val().price | currency}}</h4>
+    <!-- <h4>{{product.payload.val().category}}</h4> -->
+  </div>
+  <div class=" card-footer p-0 ">
+    <button  mat-raised-button *ngIf="getQuantity() === 0 ; else updatequantity"  color="warn" class=" w-full py-1"(click)="addToCart()" ><i class="fa fa-shopping-cart text-lg mr-2" aria-hidden="true"> </i> Add to cart </button>
+  </div>
+  <ng-template #updatequantity>
+    <div class="row no-gutters">
+      <div class="col-2">
+        <button  mat-raised-button  color="warn" class="py-1"(click)="removefromCart()" ><i class="fa fa-minus text-lg  " aria-hidden="true"> </i>  </button>
+      </div>
+      <div class="col-7 text-center mt-2 text-lg font-semibold ml-1">
+            {{getQuantity()}} in cart
+      </div>
+      <div class="col-2">
+
+        <button  mat-raised-button  color="warn" class=" w-full py-1 "(click)="addToCart()" ><i class="fa fa-plus text-lg " aria-hidden="true"> </i>  </button>
+      </div>
+
+    </div>
+  </ng-template>
+
+</div>
