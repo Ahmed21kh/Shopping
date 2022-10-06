@@ -11,33 +11,23 @@ import { ShoppingCart } from '../models/IShoppingCart';
 export class ShoppingCartService {
   constructor(private db: AngularFireDatabase) {}
 
-  private create() {
-    this.db.list('/shopping-carts/').push({
+  private async create() {
+   return this.db.list('/shopping-carts/').push({
       dateCreated: new Date().getTime(),
     });
   }
 
-private async getOrCreateCardId() {
+public  async getOrCreateCardId() {
 
-    let cardID:any =  localStorage.getItem('cardID')
-    if (cardID !== undefined  ) {  console.log(cardID); return cardID};
+    let cardID = localStorage.getItem('cardID')!;
+    if (cardID!) return cardID!;
 
-
-
-
-    let result: any = await  this.create();
-
-
-
-    localStorage.setItem('cardID', result!.key);
-
-
-    if(result.key !== null){ console.log(result.key);}
-
-    return result.key;
+     let result = await this.create();
+     localStorage.setItem('cardID', result!.key!);
+     return result!.key;
   }
 
-  getItem(cardid: any, productid: any) {
+  getItem(cardid: string, productid: string) {
     return this.db.object('/shopping-carts/' + cardid! + '/items/' + productid!);
   }
 
@@ -55,14 +45,12 @@ private async getOrCreateCardId() {
 
     console.log(product!.key);
 
-    let cardId = await this.getOrCreateCardId();
+    let cardid$ = await this.getOrCreateCardId();
 
-        if(cardId === null || undefined){
 
-        return;
-        }
+    console.log(cardid$!);
 
-    let items$ = this.getItem(cardId! , product!.key);
+    let items$ = this.getItem(cardid$! , product!.key);
 
 
     items$.snapshotChanges()
@@ -82,7 +70,6 @@ private async getOrCreateCardId() {
             },
             quantity: 1,
           });
-
           console.log('sucsses!');
         }
       });
